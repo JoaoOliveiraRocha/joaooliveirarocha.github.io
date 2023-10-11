@@ -1,1 +1,51 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Three.js_bp</title><script defer="defer" src="/static/js/main.41296762.js"></script><link href="/static/css/main.984713c2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <style>
+
+        body, html {
+        padding: 0;
+          height: 100%;
+          width: 549px;
+          overflow: hidden;
+          border: 2px solid red;
+          margin: 0;
+          display: flex;
+          flex: 1 0;
+        }
+        iframe {
+          border: none;
+        }
+
+    </style>
+  </head>
+  <body>
+    <iframe 
+    id="myIframe"
+    src="https://next-server.topper-web.enterprise.engineering-development.uphold.aws/?bt=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjE1YTUxNDJlLWMyMGYtNDY2ZS04MTMyLTIzNGRiZGFlOTdlNyJ9.eyJzdWIiOiI5OTg1NDRmMi01YjAxLTQwNjItOTM5NC0yMjgyN2ZmNWRiNmMiLCJqdGkiOiJkZDQ3NmQ0ZC03NjZhLTRhZTYtYmRjMi1mNzk2YWFmZTg1NGEiLCJpYXQiOjE2ODQ4MDc0NzYsInNvdXJjZSI6eyJhbW91bnQiOiIxMDAuMDAiLCJhc3NldCI6IlVTRCJ9LCJ0YXJnZXQiOnsiYWRkcmVzcyI6IjB4Y0Y3OTdBODk4QzUyYzM0MzM2ZkY3M0FERTg1NWQ4NjRlNmQ2QjRjNSIsImFzc2V0IjoiQkFUIiwibmV0d29yayI6ImV0aGVyZXVtIiwibGFiZWwiOiJNeSBXYWxsZXQifX0.X&enable_gtag=true"
+    width="100%"
+    fetchpriority="auto"
+    sandbox="allow-same-origin allow-scripts allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+    >
+
+    <script>
+      // When the iframe has loaded
+      document.getElementById('myIframe').onload = function() {
+          // Access content within the iframe
+          var iframeWindow = this.contentWindow;
+          var iframeDocument = this.contentDocument || iframeWindow.document;
+
+          // For demonstration purposes, let's say we want to get a debug message from the iframe's body
+          console.log('Debug Info from Iframe:', iframeDocument.body.textContent);
+      };
+  </script>
+</body>
+
+  </iframe>
+  </body>
+</html>
+
+<!-- src="http://localhost:3000/?bt=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjE1YTUxNDJlLWMyMGYtNDY2ZS04MTMyLTIzNGRiZGFlOTdlNyJ9.eyJzdWIiOiI5OTg1NDRmMi01YjAxLTQwNjItOTM5NC0yMjgyN2ZmNWRiNmMiLCJqdGkiOiJkZDQ3NmQ0ZC03NjZhLTRhZTYtYmRjMi1mNzk2YWFmZTg1NGEiLCJpYXQiOjE2ODQ4MDc0NzYsInNvdXJjZSI6eyJhbW91bnQiOiIxMDAuMDAiLCJhc3NldCI6IlVTRCJ9LCJ0YXJnZXQiOnsiYWRkcmVzcyI6IjB4Yjc5NGY1ZWEwYmEzOTQ5NGNlODM5NjEzZmZmYmE3NDI3OTU3OTI2OCIsImFzc2V0IjoiRVRIIiwibmV0d29yayI6ImV0aGVyZXVtIiwibGFiZWwiOiJNeSBXYWxsZXQifX0.X&enable_gtag=true" -->
+<!-- src="https://next-server.topper-web.enterprise.engineering-development.uphold.aws/?bt=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjE1YTUxNDJlLWMyMGYtNDY2ZS04MTMyLTIzNGRiZGFlOTdlNyJ9.eyJzdWIiOiI5OTg1NDRmMi01YjAxLTQwNjItOTM5NC0yMjgyN2ZmNWRiNmMiLCJqdGkiOiJkZDQ3NmQ0ZC03NjZhLTRhZTYtYmRjMi1mNzk2YWFmZTg1NGEiLCJpYXQiOjE2ODQ4MDc0NzYsInNvdXJjZSI6eyJhbW91bnQiOiIxMDAuMDAiLCJhc3NldCI6IlVTRCJ9LCJ0YXJnZXQiOnsiYWRkcmVzcyI6InJzR3hGbWpLanVac1FCQUdCbVZFTlAxNUs2RGo5RGpCUzMiLCJhc3NldCI6IlhSUCIsIm5ldHdvcmsiOiJ4cnAtbGVkZ2VyIiwibGFiZWwiOiJNeSBXYWxsZXQiLCJ0YWciOnsidHlwZSI6ImRlc3RpbmF0aW9uLXRhZyIsInZhbHVlIjoiMTIzNCJ9fX0.X&enable_gtag=true" -->
