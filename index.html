@@ -1,102 +1,64 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport">
-  <!-- Favicons are inlined manually below because CF does not inline them -->
-  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABtlBMVEUAAACE+3+E/ICF/H+G+32D/H+F+n+G/ICF/oKE+4CE+4GE/HyE/X+F+oCE+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+F+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3////+cQze+AAAAkHRSTlMAAAAAAAAAAAAAAAAAAAoaFwYUarzb161PCFDC+/R/BwI1pvVZH4fnCxBn1P7lJUm7+ussAS+e8dYZG37jkQENXs79zCmv+Pm0IMHQYQ6Q5IEcAy3h8qExk9jsV/y+S3p7BRFby+9WuemKIQQ+sPe/6Kk4Eont8GTFUwmWPJtrFU2XdLejdvY7I8hI3N4uks2yXNVPAAAAAWJLR0SRDw2+mgAAAAd0SU1FB+gDBw43HGIsoFcAAAGGSURBVDjLY2CgOmBk4uMXEGRkxiXNKCQsIiomLiHIiE2ahVFSSlpmAhDIysljUcGooKgkOwEClFUY0VUwsqqqqU+AAxENRjTLNbW0dRDyE3T1UBQwCuobGE5ABkbGSAoYTUzNzCegAgtLRoTpVtY2E9CBrR1UARujvYOjE4a8sx4jO1S/i6sbhrS7hyncl55eGNI63j6+iFDw00GX9w8IZGRkDLIM1tMAKQtBkw4NC1dgZDQxjoiM0jWIBgZ4DIq0YWycPFC7ZTxEn3JCIkMosuUWwklAaY3kFJi3UtMY0hHyGZlZHIyM2Tm5eQixfAb9Alj8FRYFMTIwFpeUIttZxqBQngFixFRUVjFyMjBKVqP6ShaYCGpqnbXT6+pBXmJjbJBFkZ/gDQrLIM16SS5OcLByN6IFaRNaohFsRg3TliQ0BdniKGmipB4t3TEytiKk28TbgzBSLmOHNlQ6pjOaj5EHS77o6gbL97QKMGLNGoy8vX393SmZLiZYpSG5I8lKE7c06QAAhQrwgl3ueu4AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDMtMDdUMTQ6NTU6MjgrMDA6MDC1kC7SAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAzLTA3VDE0OjU1OjI4KzAwOjAwxM2WbgAAAFd6VFh0UmF3IHByb2ZpbGUgdHlwZSBpcHRjAAB4nOPyDAhxVigoyk/LzEnlUgADIwsuYwsTIxNLkxQDEyBEgDTDZAMjs1Qgy9jUyMTMxBzEB8uASKBKLgDqFxF08kI1lQAAAABJRU5ErkJggg==" rel="icon" sizes="32x32" type="image/png">
-  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABAlBMVEUAAACE+3+F+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3+E+3////8RBlKxAAAAVHRSTlMAAAABLG9pIRp94sgkDF7N/XQEQbP4fyiV7uQ5VNr7v0Tc/tdqDhVlhk4I+emKH1bJ/PO+9ao4AjGt9usrpNm7CdDwBxcLW/qTUdtuDxKv7JEmFmAruZ7wAAAAAWJLR0RVkwS4MwAAAAd0SU1FB+gDBw43HGIsoFcAAACnSURBVBjTY2DADhiZWVjZ2BkZYVxGDk6ukBBuHkYol5ePXyAECATBShiFhEVEQ8BADCTAKC4hCeGGSEmDFMjIQrly8grMIAFFCFdJWUVVTV1DU4tBG8zX0dXT0jcwDDESYzAGck1MzcwtLK1AMtYMNrZ29jIOjOyOEK1ODIzOLq5MjIxuYIeEuHvA3OrpDuJ7efvABHz9lEL8AwKRfBMULGgmxIjF3wDTTCL1uN+GiQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNC0wMy0wN1QxNDo1NToyOCswMDowMLWQLtIAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjQtMDMtMDdUMTQ6NTU6MjgrMDA6MDDEzZZuAAAAV3pUWHRSYXcgcHJvZmlsZSB0eXBlIGlwdGMAAHic4/IMCHFWKCjKT8vMSeVSAAMjCy5jCxMjE0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouAOoXEXTyQjWVAAAAAElFTkSuQmCC" rel="icon" sizes="16x16" type="image/png">
-  <title>Topper</title>
-  <script src="/scripts.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (__TOPPER_THEME__ === 'dark') {
-        return;
-      }
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <style>
 
-      document.querySelectorAll('ul[data-pages-list] a').forEach((a) => {
-        a.setAttribute('href', a.getAttribute('href') + '?theme=' + __TOPPER_THEME__);
-      });
-    });
+        body, html {
+        padding: 0;
+          height: 638px;
+          width: 498px;
+          overflow: hidden;
+          margin: 0;
+          display: flex;
+          flex: 1 0;
+        }
+        iframe {
+          border: none;
+        }
+
+    </style>
+  </head>
+  <body>
+    <script>
+      // When the iframe has loaded
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Get the URL parameter 'url'
+    var urlParam = getParameterByName('url');
+
+    console.log('urlParam: ', urlParam);
+
+    // Create an iframe with the specified URL
+    var iframe = document.createElement('iframe');
+    iframe.src = urlParam;
+    iframe.width = '100%';
+    iframe.fetchpriority = "auto";
+    iframe.sandbox = "allow-same-origin allow-scripts allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-storage-access-by-user-activation allow-top-navigation-by-user-activation";
+    iframe.style.display = 'none';  // Hide the iframe initially
+
+    // Append the iframe to the body
+    document.body.appendChild(iframe);
+
+    // Wait for the iframe to load before displaying it
+    iframe.onload = function() {
+        iframe.style.display = 'block';  // Show the iframe after it has loaded
+    };
   </script>
-  <link rel="stylesheet" href="/styles.css">
-</head>
+</body>
 
-<body>
-  <header class="header">
-    <div class="header__logo"></div>
-  </header>
+  </iframe>
+  </body>
+</html>
 
-  <main class="main">
-    <h1>Pages</h1>
-    <ul data-pages-list>
-      <li><a href="/500_errors">500_errors</a></li>
-      <li><a href="/1000_errors">1000_errors</a></li>
-      <li><a href="/always_online">always_online</a><<!DOCTYPE html>
-        <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <title>title</title>
-            <style>
-        
-                body {
-                  width: 303px;
-                  height: 482px;
-                  margin: 0;
-                  padding: 0;
-               /* height: 100%;
-                  width: 549px;
-                  overflow: hidden;
-                  border: 2px solid red;
-                  margin: 0;
-                  display: flex;
-                  flex: 1 0; */
-                }
-                iframe {
-                  border: none;
-                  margin: 0;
-                  padding: 0;
-                }
-        
-            </style>
-          </head>
-          <body>
-            <script>
-              // When the iframe has loaded
-              function getParameterByName(name, url) {
-                if (!url) url = window.location.href;
-                name = name.replace(/[\[\]]/g, '\\$&');
-                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, ' '));
-            }
-        
-            // Get the URL parameter 'url'
-            var urlParam = getParameterByName('url');
-        
-            console.log('urlParam: ', urlParam);
-        
-            // Create an iframe with the specified URL
-            var iframe = document.createElement('iframe');
-            iframe.src = urlParam;
-            iframe.width = '100%';
-            iframe.fetchpriority = "auto";
-            iframe.sandbox = "allow-same-origin allow-scripts allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-storage-access-by-user-activation allow-top-navigation-by-user-activation";
-            iframe.style.display = 'none';  // Hide the iframe initially
-        
-            // Append the iframe to the body
-            document.body.appendChild(iframe);
-        
-            // Wait for the iframe to load before displaying it
-            iframe.onload = function() {
-                iframe.style.display = 'block';  // Show the iframe after it has loaded
-            };
-          </script>
-        </body>
-        
-          </iframe>
-          </body>
-        </html>
-        
+<!-- src="http://localhost:3000/?bt=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjE1YTUxNDJlLWMyMGYtNDY2ZS04MTMyLTIzNGRiZGFlOTdlNyJ9.eyJzdWIiOiI5OTg1NDRmMi01YjAxLTQwNjItOTM5NC0yMjgyN2ZmNWRiNmMiLCJqdGkiOiJkZDQ3NmQ0ZC03NjZhLTRhZTYtYmRjMi1mNzk2YWFmZTg1NGEiLCJpYXQiOjE2ODQ4MDc0NzYsInNvdXJjZSI6eyJhbW91bnQiOiIxMDAuMDAiLCJhc3NldCI6IlVTRCJ9LCJ0YXJnZXQiOnsiYWRkcmVzcyI6IjB4Yjc5NGY1ZWEwYmEzOTQ5NGNlODM5NjEzZmZmYmE3NDI3OTU3OTI2OCIsImFzc2V0IjoiRVRIIiwibmV0d29yayI6ImV0aGVyZXVtIiwibGFiZWwiOiJNeSBXYWxsZXQifX0.X&enable_gtag=true" -->
+<!-- src="https://next-server.topper-web.enterprise.engineering-development.uphold.aws/?bt=eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6IjE1YTUxNDJlLWMyMGYtNDY2ZS04MTMyLTIzNGRiZGFlOTdlNyJ9.eyJzdWIiOiI5OTg1NDRmMi01YjAxLTQwNjItOTM5NC0yMjgyN2ZmNWRiNmMiLCJqdGkiOiJkZDQ3NmQ0ZC03NjZhLTRhZTYtYmRjMi1mNzk2YWFmZTg1NGEiLCJpYXQiOjE2ODQ4MDc0NzYsInNvdXJjZSI6eyJhbW91bnQiOiIxMDAuMDAiLCJhc3NldCI6IlVTRCJ9LCJ0YXJnZXQiOnsiYWRkcmVzcyI6InJzR3hGbWpLanVac1FCQUdCbVZFTlAxNUs2RGo5RGpCUzMiLCJhc3NldCI6IlhSUCIsIm5ldHdvcmsiOiJ4cnAtbGVkZ2VyIiwibGFiZWwiOiJNeSBXYWxsZXQiLCJ0YWciOnsidHlwZSI6ImRlc3RpbmF0aW9uLXRhZyIsInZhbHVlIjoiMTIzNCJ9fX0.X&enable_gtag=true" -->
