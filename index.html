@@ -6,8 +6,8 @@
     <style>
         body, html {
         padding: 0;
-          height: 638px;
-          /* width: 498px; dinamically set using URL params and JS */
+          /* height: 638px; dynamically set using URL params and JS */
+          /* width: 498px; dynamically set using URL params and JS */
           overflow: hidden;
           margin: 0;
           display: flex;
@@ -37,15 +37,23 @@
     document.documentElement.style.width = pageWidth + 'px';
     document.body.style.width = pageWidth + 'px';
 
+    // Retrieve height parameter (if any), default to '638'
+    var heightParam = getParameterByName('height');
+    var pageHeight = heightParam ? heightParam : '638';
+    document.documentElement.style.height = pageHeight + 'px';
+    document.body.style.height = pageHeight + 'px';
+
     // Get the URL parameter 'url'
     var urlParam = getParameterByName('url');
 
     console.log('urlParam: ', urlParam);
+    console.log('width: ', pageWidth, 'height: ', pageHeight);
 
     // Create an iframe with the specified URL
     var iframe = document.createElement('iframe');
     iframe.src = urlParam;
     iframe.width = '100%';
+    iframe.height = '100%';
     iframe.fetchpriority = "auto";
     iframe.allow = "accelerometer; autoplay; camera; microphone; gyroscope; payment; challenges.cloudflare.com; about:blank; about:srcdoc";
     iframe.style.display = 'none';  // Hide the iframe initially
