@@ -5,9 +5,7 @@
     <title>iframe tester</title>
     <style>
         body, html {
-        padding: 0;
-          /* height: 638px; dynamically set using URL params and JS */
-          /* width: 498px; dynamically set using URL params and JS */
+          padding: 0;
           overflow: hidden;
           margin: 0;
           display: flex;
@@ -16,154 +14,86 @@
         iframe {
           border: none;
         }
+        #debug {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: rgba(255,255,255,0.9);
+          padding: 10px;
+          font-family: monospace;
+          font-size: 12px;
+          max-width: 100%;
+          overflow: auto;
+          max-height: 200px;
+          z-index: 9999;
+        }
     </style>
   </head>
   <body>
-    <script>
-      // Extract URL parameters more safely
-      function extractParams() {
-        const params = {};
-        const fullUrl = window.location.href;
+    <div id="debug"></div>
+    
+    <script>   
+      const parseUrlParams = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const width = urlParams.get('width') || '498';
+        const height = urlParams.get('height') || '638';
         
-        // Check if we have any query params
-        if (fullUrl.indexOf('?') === -1) return params;
+        const queryString = window.location.search;
         
-        // Extract the query string part
-        const queryPart = fullUrl.split('?')[1];
-        
-        // First, let's check if we have a 'url' parameter
-        if (queryPart.indexOf('url=') === -1) {
-          // No url parameter, parse normally
-          const pairs = queryPart.split('&');
-          for (let i = 0; i < pairs.length; i++) {
-            const pair = pairs[i].split('=');
-            const key = decodeURIComponent(pair[0]);
-            const value = pair.length > 1 ? decodeURIComponent(pair[1]) : '';
-            params[key] = value;
-          }
-          return params;
+        if (!queryString.includes('url=')) {
+          return { width, height, url: null };
         }
         
-        // Split the query string at 'url='
-        const parts = queryPart.split('url=');
-        const beforeUrl = parts[0]; // everything before url=
-        let afterUrl = parts[1];    // everything after url=
+        const urlPrefix = queryString.includes('?url=') ? '?url=' : '&url=';
+        const urlStart = queryString.indexOf(urlPrefix) + urlPrefix.length;
+        let urlValue = queryString.substring(urlStart);
         
-        // Process parameters before 'url='
-        if (beforeUrl) {
-          const beforePairs = beforeUrl.split('&').filter(Boolean);
-          for (let i = 0; i < beforePairs.length; i++) {
-            const pair = beforePairs[i].split('=');
-            const key = decodeURIComponent(pair[0]);
-            const value = pair.length > 1 ? decodeURIComponent(pair[1]) : '';
-            params[key] = value;
+        const widthIndex = urlValue.indexOf('&width=');
+        if (widthIndex !== -1) {
+          const nextParam = urlValue.indexOf('&', widthIndex + 1);
+          if (nextParam !== -1) {
+            urlValue = urlValue.substring(0, widthIndex) + urlValue.substring(nextParam);
+          } else {
+            urlValue = urlValue.substring(0, widthIndex);
           }
         }
         
-        // Now extract the actual URL value and any remaining parameters
-        // We need to find where the actual URL ends and the next parameter begins
-        
-        // Find the first unencoded & that's not part of the URL parameter
-        let urlValue = afterUrl;
-        let remainingParams = '';
-        
-        // Look for a pattern that would indicate the end of the URL parameter
-        // This is complex because we need to distinguish between & in the URL parameter
-        // and & that separates the next parameter
-        
-        // A safer approach: find the last parameter in the query string
-        const matches = afterUrl.match(/&[^=&?]+=/g);
-        
-        if (matches && matches.length > 0) {
-          // We have additional parameters after the URL
-          const lastIndex = afterUrl.lastIndexOf(matches[matches.length - 1]);
-          urlValue = afterUrl.substring(0, lastIndex);
-          remainingParams = afterUrl.substring(lastIndex + 1);
-        }
-        
-        // Set the URL parameter
-        params['url'] = decodeURIComponent(urlValue);
-        
-        // Process any parameters after the URL
-        if (remainingParams) {
-          const afterPairs = remainingParams.split('&').filter(Boolean);
-          for (let i = 0; i < afterPairs.length; i++) {
-            const pair = afterPairs[i].split('=');
-            const key = decodeURIComponent(pair[0]);
-            const value = pair.length > 1 ? decodeURIComponent(pair[1]) : '';
-            params[key] = value;
+        const heightIndex = urlValue.indexOf('&height=');
+        if (heightIndex !== -1) {
+          const nextParam = urlValue.indexOf('&', heightIndex + 1);
+          if (nextParam !== -1) {
+            urlValue = urlValue.substring(0, heightIndex) + urlValue.substring(nextParam);
+          } else {
+            urlValue = urlValue.substring(0, heightIndex);
           }
         }
         
-        return params;
+        const decodedUrl = decodeURIComponent(urlValue);
+        
+        return { width, height, url: decodedUrl };
       }
+      
+      const params = parseUrlParams();
 
-      // A simpler solution: directly extract the URL parameter
-      function getUrlParameter() {
-        const url = window.location.href;
-        // If there's no url parameter
-        if (url.indexOf('?url=') === -1) return null;
-        
-        // Get everything after ?url=
-        const urlParam = url.split('?url=')[1];
-        
-        // Find the position of the next standalone parameter marker
-        // This is a & followed by a string and then =, without any other = in between
-        let endPos = urlParam.length;
-        
-        // Use regex to find additional parameters
-        const additionalParamMatch = urlParam.match(/&[^&=?]+=/);
-        if (additionalParamMatch && additionalParamMatch.index > 0) {
-          endPos = additionalParamMatch.index;
-        }
-        
-        // Extract just the URL part
-        return decodeURIComponent(urlParam.substring(0, endPos));
-      }
-      
-      // Get other basic parameters directly
-      function getBasicParam(name, defaultValue) {
-        const regex = new RegExp(`[?&]${name}=([^&#]*)`);
-        const results = regex.exec(window.location.href);
-        if (!results || !results[1]) return defaultValue;
-        return decodeURIComponent(results[1]);
-      }
-      
-      // Set dimensions
-      const pageWidth = getBasicParam('width', '498');
-      const pageHeight = getBasicParam('height', '638');
-      
-      document.documentElement.style.width = pageWidth + 'px';
-      document.body.style.width = pageWidth + 'px';
-      document.documentElement.style.height = pageHeight + 'px';
-      document.body.style.height = pageHeight + 'px';
-      
-      // Get the URL parameter using our more robust method
-      const urlParam = getUrlParameter();
-      
-      console.log('urlParam: ', urlParam);
-      console.log('width: ', pageWidth, 'height: ', pageHeight);
-      
-      if (urlParam) {
-        // Create an iframe with the specified URL
-        const iframe = document.createElement('iframe');
-        iframe.src = urlParam;
-        iframe.width = '100%';
-        iframe.height = '100%';
-        iframe.fetchpriority = "auto";
-        iframe.allow = "accelerometer; autoplay; camera; microphone; gyroscope; payment; challenges.cloudflare.com; about:blank; about:srcdoc";
-        iframe.style.display = 'none';  // Hide the iframe initially
-        
-        // Append the iframe to the body
-        document.body.appendChild(iframe);
-        
-        // Wait for the iframe to load before displaying it
-        iframe.onload = function() {
-            iframe.style.display = 'block';  // Show the iframe after it has loaded
-        };
-      } else {
-        document.body.innerHTML = '<p>No URL parameter provided.</p>';
-      }
+      document.documentElement.style.width = params.width + 'px';
+      document.body.style.width = params.width + 'px';
+      document.documentElement.style.height = params.height + 'px';
+      document.body.style.height = params.height + 'px';
+
+      const iframe = document.createElement('iframe');
+      iframe.src = params.url;
+      iframe.width = '100%';
+      iframe.height = '100%';
+      iframe.fetchpriority = "auto";
+      iframe.allow = "accelerometer; autoplay; camera; microphone; gyroscope; payment; challenges.cloudflare.com; about:blank; about:srcdoc";
+      iframe.style.display = 'none';
+
+      document.body.appendChild(iframe);      
+
+      iframe.onload = () => {
+        iframe.style.display = 'block';
+      };
     </script>
   </body>
 </html>
