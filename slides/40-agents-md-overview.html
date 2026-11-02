@@ -1,0 +1,80 @@
+<section>
+  <span>My AGENTS.md</span>
+  <h2>What I want, and what I have there</h2>
+  <table class="fix-table three-col wide2">
+    <thead>
+      <tr>
+        <th>What I want</th>
+        <th>What I have there</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment">
+        <td>Quick Intro, clarify scenario</td>
+        <td>
+          Experience in JS, still adapting to TS. React Mental model mostly,
+          understand backend concept and infra, etc.
+          <br />Some tools available like ripgrep, fzf, node, nvm.
+        </td>
+      </tr>
+
+      <tr class="fragment">
+        <td>Comms style</td>
+        <td>
+          <em>Communication Style:</em> Be direct. Skip preamble and "Great
+          question!" filler. Sacrifice grammar for message content / concision.
+          etc
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>
+          Ask at while<br />
+          Ask > guessing
+        </td>
+        <td>
+          <em>Communication Style:</em> On ambiguity / multiple approaches
+          question the user (<code>ask</code> tool)<br />
+          Use <code>web_search</code> when planning / investigating.
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Code Preferences:</td>
+        <td>
+          <em>Smallest diff, nothing extra</em> The best code is the code never
+          written.<br />Ponytail-like™®
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Root cause, not symptom</td>
+        <td><em>Code Preferences:</em> Bug fix = root cause, not symptom.</td>
+      </tr>
+      <tr class="fragment">
+        <td>Never mutates without asking</td>
+        <td>
+          <em>Workflow:</em> Never stage, commit, amend, etc mutate Git, Jira,
+          Figma. Reads are fine.
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Working modes</td>
+        <td>
+          Code Review mode, Implementation mode, Plan mode (OMP usually detects
+          if we're in any of these modes).<br />
+          when sub-agents are allowed, when creating temporary files, etc
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    ~90s. This is not a tutorial on omp. It is my global AGENTS.md, which every
+    session loads, read as a list of wishes. Pick two or three and tell the
+    story, do not read the table. Peer: the file says the user is experienced,
+    so no tutoring. Asks: the agent has an ask tool and I tell it to use it on
+    ambiguity, because a wrong guess costs more tokens than a question. Smallest
+    diff: also "No unrequested abstractions" and "Minimize unrelated changes".
+    Root cause: grep every caller before editing, fix once where all callers
+    route through. Mutations: the same rule extends to Jira, Confluence, PR
+    comments and remote branches. Tokens: RTK trims noisy command output (60-90%
+    claimed in the block itself); answers are also told to stay short.
+  </aside>
+</section>

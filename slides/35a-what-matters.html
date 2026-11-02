@@ -1,0 +1,118 @@
+<section>
+  <h2>What really matters for coding agents?</h2>
+  <table class="fix-table three-col wide2" style="font-size: 1.05em">
+    <thead>
+      <tr>
+        <th>Lever</th>
+        <th>Measured effect</th>
+        <th>Where</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment" style="font-size: 1.2em">
+        <td>📝 Task definition</td>
+        <td>
+          Missing information: <em> 54.8% → 70.8%</em><br />
+          Let it ask first:
+          <em>69.4%</em>
+        </td>
+        <td>SWE-bench Verified, Sonnet 4.5</td>
+      </tr>
+      <tr class="fragment">
+        <td style="color: red !important">🧰 Harness (whole bundle)</td>
+        <td>
+          <em>+13.7 pts</em> best case. Swapping harness on frontier models:
+          ~±5%
+        </td>
+        <td>Terminal-Bench 2.0, HarnessTax</td>
+      </tr>
+      <tr class="fragment">
+        <td>🧩 Skills</td>
+        <td><em>+16 pts</em> on average across domains</td>
+        <td>SkillsBench</td>
+      </tr>
+      <tr class="fragment">
+        <td>🧩 Skills (SWE)</td>
+        <td>
+          <em>+4.5 pts</em> in software engineering. 39 of 49 SWE skills: no
+          gain
+        </td>
+        <td>SkillsBench, SWE-Skills-Bench</td>
+      </tr>
+      <tr class="fragment">
+        <td>🧩 Skills (ask to use)</td>
+        <td>
+          Default: <em>53%</em>,(never invoked in 56% of runs). Told to use it:
+          <em>79%</em>. Docs index in <code>AGENTS.md</code>: <em>100%</em>
+        </td>
+        <td>Vercel, Next.js 16 evals</td>
+      </tr>
+      <tr class="fragment">
+        <td>📄 <code>AGENTS.md</code></td>
+        <td>
+          <em>−29% runtime</em>, <em>−17% output tokens</em>, same task
+          completion
+        </td>
+        <td>Lulla et al., 124 PRs</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="fragment">
+    <strong>A vague task costs about as much as the best harness gains.</strong>
+  </p>
+
+  <aside class="notes">
+    ~90s. The point of the slide is the first row. Every other lever is
+    something we tune once; the task definition is something we write every
+    single time. Numbers, all checked against the papers: (1) Edwards &amp;
+    Schuster, "Ask or Assume?" (arXiv 2603.26233), OpenHands + Claude Sonnet 4.5
+    on an underspecified variant of SWE-bench Verified: full spec 70.8%,
+    underspecified 54.8%, single agent told to detect gaps 61.2%, prompted to
+    ask 70.4%, their multi-agent scaffold 69.4%. NOTE: the 61.2% is the
+    single-agent scaffold, not the baseline; the real gap for Sonnet 4.5 is 16
+    points. Kimi K2.6 shows the same trend. (2) Ambig-SWE (Vijayvargiya et al.,
+    ICLR 2026): interaction recovers 54% to 89% of the lost performance
+    depending on the model (Sonnet 3.5 and Haiku 3.5 about 80%, Sonnet 4 89%,
+    DeepSeek 59%, Llama 3.1 54%); up to 74% improvement over non-interactive.
+    (3) Harness: LangChain 52.8% to 66.5% on Terminal-Bench 2.0 (a bundle of
+    changes); HarnessTax success within about 2% across harnesses. (4) Skills:
+    SkillsBench (arXiv 2602.12670), curated skills +16.2 pts on average, +4.5 in
+    software engineering, +51.9 in healthcare, 16 of 84 tasks negative; the
+    NeurIPS version says 16.4. SWE-Skills-Bench (arXiv 2603.15401): 39 of 49
+    skills gave zero improvement, average +1.2%; there is a ceiling effect, most
+    tasks were already at 90%+. Skills help where the model lacks knowledge, not
+    in mainstream SWE. CAVEATS: these are separate studies on different
+    benchmarks, so only magnitudes compare. The task-definition numbers use
+    hidden tests that encode requirements the issue never states, which punishes
+    vagueness more than a real workflow where you review and re-prompt: treat
+    the drop as an upper bound. Nobody varies spec, skills and harness in one
+    design, and it is all Python issue-resolution or terminal tasks, not
+    long-horizon work. I also could not verify a "43.8% to 23.7% across 700
+    instances" figure that circulates, so it is not on the slide. Link to what
+    comes next: scoped, verifiable tasks are how you avoid the first row. VERCEL
+    (Jude Gao, 27 Jan 2026, "AGENTS.md outperforms skills in our agent evals",
+    checked against the post): Next.js 16 API evals, 4 configs: baseline 53%,
+    skill default 53%, skill with explicit instructions 79%, 8KB compressed docs
+    index in AGENTS.md 100%. Mechanism is invocation, not content: the skill was
+    never invoked in 56% of runs; explicit instructions lifted the trigger rate
+    to 95%+. Wording was fragile ("You MUST invoke the skill" anchored on docs
+    and missed project config; "explore first, then invoke" did better). The
+    index used "prefer retrieval-led reasoning over pre-training-led reasoning".
+    CAVEATS: Next.js 16 APIs were not in training data, which is where always-on
+    docs help most; 100% is saturated, so it only shows AGENTS.md is enough, not
+    how much better; it is a docs index, not behavioral rules, so do not read it
+    as "AGENTS.md beats skills" for workflows (Vercel itself says skills fit
+    task-specific workflows); models were not stated. Informal one-person
+    replications point the same way (0% invocation for vanilla skills; about 46%
+    trigger recall): weigh them lightly. LULLA et al. (arXiv 2601.20404): 10
+    repos, 124 PRs, with vs without a human-written AGENTS.md: median runtime
+    -28.64%, output tokens -16.58%, comparable completion. Separate finding, not
+    on the slide: ETH Zurich found LLM-generated AGENTS.md files did not help
+    and cost about 2 to 3 points on AgentBench. Reconciliation: AGENTS.md helps
+    speed and cost when it holds non-inferable information; it does not clearly
+    move pass rates. Takeaway for the room: skills are a retrieval problem
+    before they are a content problem. That also explains the weak SWE skill
+    rows above (low invocation, low headroom, model already knows it; no study
+    separates them).
+  </aside>
+</section>

@@ -1,0 +1,87 @@
+<section>
+  <span class="eyebrow">The three that matter most</span>
+  <h2>Scoped. Verifiable. Autonomous.</h2>
+  <table class="fix-table three-col badgood">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>❌ Bad</th>
+        <th>✅ Good</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="0">
+            Well-scoped
+            <small>The agent knows exactly where the task begins and ends.</small>
+          </span>
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="0"
+            >“Improve the authentication system.”</span
+          >
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="1"
+            >“Add token-expiration validation to
+            <code>auth/middleware.ts</code>, without changing the login
+            flow.”</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="2">
+            Verifiable
+            <small>Success is a concrete check, not the agent's opinion.</small>
+          </span>
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="2"
+            >“Make the API more robust.”</span
+          >
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="3"
+            >“Return HTTP 400 for malformed input, add regression tests, and
+            ensure the existing API tests pass.”</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="4">
+            Autonomously executable
+            <small
+              >The agent has the information, environment, tools and permissions
+              to finish.</small
+            >
+          </span>
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="4"
+            >“Integrate our payment provider.”</span
+          >
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="5"
+            >“Using the existing payment client and sandbox configuration,
+            implement webhook signature validation against the documented
+            payload format.”</span
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    ~90s. Two clicks per row: first the property and the bad example (let the
+    room feel the ambiguity), then the good one. My own tips, if there's time:
+    don't blindly trust ACs from Jira (some are a year old and written by
+    non-engineers); ask for a plan first so you both know what the solution
+    looks like; if you can't explain "defense in depth" or "theta-style joins",
+    don't ship it; rubber duck the problem and ask for pros and cons; tests are
+    the cheapest proof; templates give a shape to fill instead of a blank page;
+    reproduce the user's case with the same conditions and steps.
+  </aside>
+</section>

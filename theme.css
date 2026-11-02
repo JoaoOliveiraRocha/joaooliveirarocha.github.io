@@ -1,0 +1,1103 @@
+/* ============================================================
+   "Warm Study" reveal.js theme
+   Coding agents, harnesses, and my new best friend
+   ============================================================
+   Light mode: warm cream/parchment canvas with a subtle wood-grain
+   texture (pure CSS gradients, no image assets), dark rich forest
+   green as the one primary color, generous spacing throughout.
+   ============================================================ */
+
+/* reveal.css ships a malformed print rule: `.reveal h1` (unlike h2-h6, which
+   are correctly guarded by `html:not(.print-pdf)`) gets `color:#000!important`
+   unconditionally, and empirically it leaks into normal display for h2/h3/li
+   too. Override everything it touches with equal-or-greater specificity,
+   loaded after so source order wins the tie. */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal li,
+.reveal p {
+  color: var(--ink) !important;
+}
+
+/* reveal.css forces `.reveal pre code{overflow:hidden!important}` (meant for
+   its optional auto-animate/stretch code-scroll feature) which was clipping
+   plain code blocks to a tiny fixed height, hiding most of their content.
+   Force it back open. */
+.reveal pre code {
+  display: block !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+:root {
+  --ink: #2b2318;
+  --ink-dim: #6d6250;
+  --ink-faint: #a49a86;
+  --bg: #f3ead4;
+  --bg-panel: #ece0c3;
+  --accent: #113224;
+  --accent-soft: #11322414;
+  --accent-line: #11322455;
+  --border: #2b23181f;
+  --demo: #a8402f;
+  --demo-soft: #a8402f14;
+  --spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --heading-font: "American Typewriter", "Big Caslon", Georgia, ui-serif, serif;
+  --sans:
+    "New York", ui-serif, Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+
+  --r-background-color: var(--bg);
+  --r-main-font: var(--sans);
+  --r-main-font-size: 30px;
+  --r-main-color: var(--ink);
+  --r-block-margin: 34px;
+  --r-heading-margin: 0 0 0.55em 0;
+  --r-heading-font: var(--heading-font);
+  --r-heading-color: var(--ink);
+  --r-heading-line-height: 1.1;
+  --r-heading-letter-spacing: -0.025em;
+  --r-heading-text-transform: none;
+  --r-heading-text-shadow: none;
+  --r-heading-font-weight: 700;
+  --r-heading1-size: 4.1em;
+  --r-heading2-size: 2.4em;
+  --r-heading3-size: 1.35em;
+  --r-heading4-size: 1.05em;
+  --r-code-font: var(--mono);
+  --r-link-color: var(--accent);
+  --r-link-color-dark: #143327;
+  --r-link-color-hover: #2c6b4d;
+  --r-selection-background-color: var(--accent-soft);
+  --r-selection-color: var(--ink);
+}
+
+/* ---------- base canvas: warm parchment + faint wood grain ---------- */
+
+html,
+body {
+  background: var(--bg);
+}
+
+.reveal {
+  font-family: var(--sans);
+  font-weight: 400;
+}
+
+/* reveal.js's own background layer stays transparent — the canvas behind it
+   is the real background now. */
+.reveal .backgrounds {
+  background: transparent;
+}
+
+/* Full-viewport animated flowing-line mesh — this *is* the background. */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Subtle, discreet beveled/embossed title — a soft carved-paper look, not a
+   heavy 3D effect. drop-shadow (not text-shadow) because the h1 text is
+   transparent, so a text-shadow would bleed through the glyphs. */
+.reveal .slides section.title-slide h1 {
+  filter: drop-shadow(0 1px 0 rgba(255, 252, 240, 0.65))
+    drop-shadow(0 -1px 1px rgba(43, 35, 24, 0.18));
+}
+
+/* ---------- headings ---------- */
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  line-height: 133%;
+  font-family: var(--heading-font);
+  text-wrap: balance;
+  color: var(--accent);
+}
+
+/* Big title: a soft colour wave drifts through the glyphs, same slow pace as
+   the background mesh. Wave colour is red for now so it's easy to tune. */
+.reveal h1 {
+  --h1-base: var(--accent);
+  --h1-wave: #e0242b;
+  font-size: var(--r-heading1-size);
+  color: transparent !important;
+  background-image: linear-gradient(
+    100deg,
+    var(--h1-base) 0%,
+    var(--h1-base) 22%,
+    color-mix(in srgb, var(--h1-wave) 25%, var(--h1-base)) 33%,
+    color-mix(in srgb, var(--h1-wave) 65%, var(--h1-base)) 42%,
+    var(--h1-wave) 50%,
+    color-mix(in srgb, var(--h1-wave) 65%, var(--h1-base)) 58%,
+    color-mix(in srgb, var(--h1-wave) 25%, var(--h1-base)) 67%,
+    var(--h1-base) 78%,
+    var(--h1-base) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: repeat-x;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: h1-wave 9s linear infinite;
+}
+
+@keyframes h1-wave {
+  from {
+    background-position-x: 0%;
+  }
+  to {
+    background-position-x: 200%;
+  }
+}
+
+.reveal h2 {
+  font-size: var(--r-heading2-size);
+}
+
+/* ---------- body copy ---------- */
+
+.reveal p {
+  line-height: 1.6;
+  margin: 0.8em 0;
+}
+
+.reveal p.lede {
+  color: var(--ink-dim) !important;
+  font-size: 0.82em;
+}
+
+/* ---------- eyebrow badge ---------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.4em 1.1em;
+  margin-bottom: 1.1em;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.34em;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+}
+
+.eyebrow.live {
+  color: var(--demo);
+  background: var(--demo-soft);
+  border-color: #a8402f55;
+}
+
+.eyebrow.live::before {
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--demo);
+  flex: none;
+}
+
+/* ---------- blockquote: clean left-accent bar ---------- */
+
+.reveal blockquote {
+  width: auto;
+  max-width: 100%;
+  margin: 1.4em 0;
+  padding: 0.9em 1.5em;
+  border: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: #ffffff40;
+  color: var(--ink-dim);
+  font-style: normal;
+  box-shadow: none;
+  text-align: left;
+  font-size: 0.85em;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 0.6em;
+  font-size: 0.8em;
+  color: var(--ink-faint);
+  font-style: normal;
+}
+
+/* ---------- code ---------- */
+
+.reveal code {
+  font-family: var(--mono);
+  color: var(--accent);
+  background: #ffffff55;
+  padding: 0.15em 0.45em;
+  border-radius: 5px;
+  font-size: 0.85em;
+  border: 1px solid var(--border);
+}
+
+.reveal pre {
+  width: auto;
+  max-width: 100%;
+  box-shadow: none;
+  margin: 1.4em 0;
+}
+
+.reveal pre code {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.3em 1.6em;
+  color: var(--ink);
+}
+
+/* ---------- lists ---------- */
+
+.reveal ul,
+.reveal ol {
+  margin-top: 3rem;
+  display: block;
+  margin-left: 0;
+}
+
+.reveal ul li,
+.reveal ol li {
+  margin: 0.75em 0;
+  line-height: 1.5;
+}
+
+/* Text before the em-dash in a bullet: the headline of the point. */
+.reveal li .lead {
+  font-weight: 700;
+  font-size: 1.15em;
+  color: var(--accent);
+}
+
+.reveal ul {
+  list-style: none;
+}
+
+.reveal ul li::before {
+  content: "🌿";
+  color: var(--accent);
+  display: inline-block;
+  width: 1.3em;
+  margin-left: -1.3em;
+  font-size: 0.85em;
+}
+
+/* ---------- mermaid diagrams: framed panel ---------- */
+
+.reveal .mermaid-frame {
+  display: block;
+  width: fit-content;
+  margin: 1em auto;
+  padding: 1.6em 2em;
+  border-radius: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 40px -22px #2b231830;
+}
+
+.reveal .mermaid-frame svg {
+  border-radius: 10px;
+  display: block;
+}
+
+/* Tall diagrams (many nodes per rank): size by height instead of shrinking. */
+.reveal .mermaid-frame.tall svg {
+  height: 520px;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* A short scale "pop" when a fragment with .pop becomes visible. */
+.reveal .fragment.pop.visible {
+  animation: fragment-pop 0.45s var(--spring);
+}
+
+@keyframes fragment-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Mermaid's HTML labels: classDef `color` is overridden by the theme's
+   `.reveal p { color: ... !important }`, and its measured label box can be a
+   hair narrower than the rendered text, so let it overflow instead of clipping. */
+.reveal .mermaid foreignObject {
+  overflow: visible;
+}
+
+.reveal .mermaid .node.main .label *,
+.reveal .mermaid .node.orig .label *,
+.reveal .mermaid .node.fresh .label * {
+  color: #f3ead4 !important;
+}
+
+.reveal .mermaid .node.fork .label * {
+  color: #2b2318 !important;
+}
+
+/* ---------- live-demo marker ---------- */
+
+.reveal .demo-callout {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  margin-bottom: 0.6em;
+  border: 1px solid #a8402f55;
+  background: var(--demo-soft);
+  color: var(--demo);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.4em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ---------- title slide ---------- */
+
+.reveal .slides section.title-slide {
+  text-align: center;
+}
+
+.reveal .slides section.title-slide h1 {
+  font-size: 4.8em;
+  margin-bottom: 0.5em;
+  letter-spacing: -0.03em;
+}
+
+/* Most slides read right-aligned; the two deliberately-centered
+   compositions (title, plot-twist reveal) keep their own alignment. */
+.reveal .slides section:not(.title-slide):not(.impact) {
+  text-align: right;
+}
+
+/* Bulleted/numbered lists keep left alignment — their arrow/counter
+   markers are positioned assuming left-to-right reading order. */
+.reveal .slides section ul,
+.reveal .slides section ol {
+  text-align: left;
+}
+
+.reveal .slides section.title-slide .subtitle {
+  color: var(--ink-dim) !important;
+  font-size: 0.85em;
+  font-family: var(--sans);
+  font-style: italic;
+}
+
+/* ---------- reveal slide (the plot twist) ---------- */
+
+.reveal .slides section.impact {
+  text-align: center;
+}
+
+.reveal .slides section.impact blockquote {
+  display: inline-block;
+  border-left: none;
+  border-top: 3px solid var(--accent);
+  border-radius: 0;
+  background: none;
+  text-align: center;
+  font-size: 1.15em;
+  color: var(--ink-dim);
+  padding-top: 0.9em;
+  margin: 0.8em auto;
+  max-width: 22em;
+}
+
+.reveal .slides section.impact .payoff {
+  font-family: var(--mono);
+  font-size: 1.6em;
+  color: var(--ink) !important;
+  margin-top: 0.8em;
+}
+
+.reveal .slides section.impact .payoff .accent {
+  color: var(--accent) !important;
+}
+
+/* ---------- takeaway / closing numbered list ---------- */
+
+.reveal .slides section.closing ol {
+  list-style: none;
+  counter-reset: step;
+  max-width: 26em;
+  margin: 1.3em auto 0;
+  text-align: left;
+}
+
+.reveal .slides section.closing ol li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.4em;
+  margin: 1.1em 0;
+}
+
+.reveal .slides section.closing ol li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- progress + controls ---------- */
+
+.reveal .progress {
+  color: var(--accent);
+  height: 3px;
+}
+
+.reveal .controls {
+  color: var(--ink-dim);
+}
+
+.reveal img.brand-logo {
+  display: block;
+  height: 56px;
+  margin: 0 auto 0.8em 0;
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+
+/* Logo pinned to the left edge; the heading keeps the slide's normal
+   (right-aligned) position. */
+.reveal .title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+.reveal .title-row h2 {
+  margin: 0;
+}
+
+.reveal .title-row img {
+  height: 2.4em;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+
+.reveal .logo-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2em;
+  margin: 1.4em 0 0.4em;
+}
+
+.reveal .logo-strip img {
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+
+.reveal .logo-strip img.dim {
+  height: 56px;
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+.reveal .logo-strip .mystery {
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 24px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--heading-font);
+  font-size: 100px;
+  font-weight: 700;
+  line-height: 1;
+  animation: mystery-glow 3.2s ease-in-out infinite;
+}
+
+@keyframes mystery-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(17, 50, 36, 0);
+  }
+  50% {
+    box-shadow: 0 0 36px 6px rgba(17, 50, 36, 0.35);
+  }
+}
+
+.reveal .logo-strip .arrow {
+  font-size: 2em;
+  color: var(--ink-faint);
+}
+
+.reveal .logo-strip img.hero {
+  height: 150px;
+}
+
+.reveal table.fix-table {
+  width: 100%;
+  margin: 1em 0 0;
+  font-size: 0.85em;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.reveal table.fix-table th,
+.reveal table.fix-table td {
+  padding: 0.45em 0.8em;
+  border-bottom: 1px solid var(--border);
+}
+
+.reveal table.fix-table th {
+  color: var(--ink-dim);
+  font-weight: 700;
+}
+
+.reveal table.fix-table td:first-child {
+  width: 32%;
+  color: var(--ink-dim);
+}
+
+.reveal table.fix-table td:last-child {
+  font-weight: 600;
+}
+
+.reveal table.fix-table.three-col {
+  width: calc(100% + 260px);
+  margin: 1.2em 0 0 -130px;
+  font-size: 1.05em;
+}
+
+.reveal table.fix-table.three-col th,
+.reveal table.fix-table.three-col td {
+  padding: 0.8em 1em;
+}
+
+.reveal table.fix-table.three-col td:first-child {
+  width: 20%;
+}
+
+.reveal table.fix-table.three-col td:nth-child(2) {
+  width: 34%;
+}
+
+.reveal table.fix-table.three-col.wide2 td:first-child {
+  width: 34%;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.reveal table.fix-table.three-col.wide2 td:nth-child(2) {
+  width: auto;
+  font-weight: 400;
+}
+
+.reveal table.fix-table.three-col.big {
+  font-size: 1.3em;
+}
+
+.reveal table.fix-table.three-col.wide2 td em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Magic keywords: each word gets its own moving rainbow behind it, like the
+   per-keyword gradients omp animates in its editor. */
+.reveal .kw {
+  padding: 0.05em 0.4em;
+  border-radius: 8px;
+  color: var(--ink) !important;
+  background-image: linear-gradient(
+    100deg,
+    #ff6b6b,
+    #ffb347,
+    #ffe66d,
+    #7be495,
+    #4dd0e1,
+    #7c8cff,
+    #c77dff,
+    #ff6b6b
+  );
+  background-size: 300% 100%;
+  animation: kw-rainbow 6s linear infinite;
+}
+
+.reveal .kw-2 {
+  animation-duration: 4s;
+  animation-direction: reverse;
+}
+
+.reveal .kw-3 {
+  animation-duration: 8s;
+  filter: hue-rotate(60deg);
+}
+
+.reveal .kw-4 {
+  animation-duration: 3s;
+  filter: hue-rotate(200deg);
+}
+
+@keyframes kw-rainbow {
+  from {
+    background-position-x: 0%;
+  }
+  to {
+    background-position-x: 300%;
+  }
+}
+
+.reveal ul.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2em;
+  margin: 1em -130px 0;
+  font-size: 1.3em;
+}
+
+.reveal ul.two-col li {
+  break-inside: avoid;
+}
+
+.reveal .caption {
+  font-size: 0.8em;
+  font-style: italic;
+  color: var(--ink-dim) !important;
+}
+
+/* ---------- prompt-template anatomy slide ---------- */
+
+.reveal .anatomy {
+  display: grid;
+  grid-template-columns: 1.75fr 1fr;
+  gap: 1.4em;
+  align-items: start;
+  margin: 0 -195px;
+  text-align: left;
+}
+
+.reveal .anatomy pre {
+  margin: 0;
+}
+
+.reveal .anatomy pre code {
+  font-size: 1em;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.reveal .anatomy .hl {
+  border-radius: 4px;
+  padding: 0.05em 0.2em;
+}
+
+.reveal .hl-a {
+  --hl: #2c6b4d;
+}
+
+.reveal .hl-b {
+  --hl: #c98a1b;
+}
+
+.reveal .hl-c {
+  --hl: #0f5e96;
+}
+
+.reveal .hl-d {
+  --hl: #a8402f;
+}
+
+.reveal .anatomy .hl {
+  background: color-mix(in srgb, var(--hl) 22%, transparent);
+}
+
+/* Code stays visible; each colour lights up on its click. */
+.reveal .anatomy .hl.fragment {
+  opacity: 1;
+  visibility: inherit;
+  background: transparent;
+  transition: background 0.5s var(--spring);
+}
+
+.reveal .anatomy .hl.fragment.visible {
+  background: color-mix(in srgb, var(--hl) 22%, transparent);
+}
+
+.reveal .anatomy .legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.05em;
+}
+
+.reveal .anatomy .legend li {
+  margin: 0 0 0.9em;
+  padding: 0.5em 0.9em;
+  border-left: 6px solid var(--hl);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--hl) 12%, transparent);
+}
+
+.reveal .anatomy .legend li::before {
+  content: none;
+}
+
+/* ---------- agent-task slides: checklist, bad/good table, dimensions ---------- */
+
+.reveal ul.two-col.small {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(5, auto);
+  font-size: 0.82em;
+}
+
+.reveal table.fix-table.badgood {
+  font-size: 1em;
+}
+
+/* Fragment spans inside table cells need block layout for fade-up's transform. */
+.reveal table.fix-table td > .fragment {
+  display: block;
+}
+
+/* A phrase that is always visible but lights up on click. */
+.reveal .fragment.emph {
+  opacity: 1;
+  visibility: inherit;
+  color: var(--ink-faint);
+  transition: color 0.5s var(--spring);
+}
+
+.reveal .fragment.emph.visible {
+  color: var(--accent);
+}
+
+.reveal table.fix-table.badgood td:first-child {
+  width: 24%;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.reveal table.fix-table.badgood td:nth-child(2) {
+  width: 28%;
+  font-weight: 400;
+}
+
+.reveal table.fix-table.badgood td:last-child {
+  font-weight: 400;
+}
+
+/* Uses (nearly) the full slide width. */
+.reveal table.fix-table.badgood.wide {
+  width: calc(100% + 340px);
+  margin: 0.6em 0 0 -170px;
+  font-size: 1.2em;
+}
+
+.reveal table.fix-table.badgood.wide td:first-child {
+  width: 11%;
+}
+
+.reveal table.fix-table.badgood.wide td:nth-child(2) {
+  width: 34%;
+}
+
+.reveal table.fix-table.badgood td small {
+  display: block;
+  margin-top: 0.3em;
+  font-weight: 400;
+  color: var(--ink-dim);
+}
+
+.reveal .dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  margin: 1em 0;
+  text-align: left;
+}
+
+.reveal .dims .dim {
+  padding: 0.3em 1em;
+  border-left: 6px solid var(--hl);
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in srgb, var(--hl) 12%, transparent);
+}
+
+.reveal .dims .dim h3 {
+  margin: 0.2em 0 0;
+  color: var(--hl);
+}
+
+.reveal .dims .dim p {
+  margin: 0.2em 0 0.5em;
+}
+
+.reveal .dims.groups {
+  position: relative;
+  grid-auto-rows: 1fr;
+  margin: 2.2em -170px 2em;
+  gap: 1.8em;
+}
+
+/* Dashed cross over the grid, drawn through the gaps between the cards. */
+.reveal .dims .axes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.reveal .dims .ax-line {
+  position: absolute;
+  border: 0 dashed var(--ink-dim);
+}
+
+.reveal .dims .ax-h {
+  left: -0.5em;
+  right: -0.5em;
+  top: 50%;
+  border-top-width: 3px;
+}
+
+.reveal .dims .ax-v {
+  top: -0.5em;
+  bottom: -0.5em;
+  left: 50%;
+  border-left-width: 3px;
+}
+
+.reveal .dims .ax-label {
+  position: absolute;
+  padding: 0.15em 0.8em;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.reveal .dims .ax-left {
+  left: 14%;
+  top: 50%;
+}
+
+.reveal .dims .ax-right {
+  left: 86%;
+  top: 50%;
+}
+
+/* Vertical-axis labels sit beyond the ends of the line, not on it. */
+.reveal .dims .ax-top,
+.reveal .dims .ax-bottom {
+  left: 50%;
+}
+
+.reveal .dims .ax-top {
+  top: -1.5em;
+}
+
+.reveal .dims .ax-bottom {
+  top: calc(100% + 1.5em);
+}
+
+.reveal .dims.groups .dim {
+  padding: 0.5em 1.3em 0.4em;
+}
+
+.reveal .dims.groups .dim h3 {
+  font-size: 1.6em;
+}
+
+.reveal .dims.groups .dim ul {
+  margin: 0.4em 0 0.4em;
+  padding: 0;
+  font-size: 1em;
+}
+
+.reveal .dims.groups .dim li {
+  margin: 0.55em 0;
+  line-height: 1.4;
+}
+
+/* ---------- prompt-size comparison slide ---------- */
+
+.reveal .prompt-compare {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.2em;
+  margin: 0 -130px;
+  text-align: left;
+}
+
+.reveal .prompt-compare figure {
+  margin: 0;
+}
+
+.reveal .prompt-compare figcaption {
+  font-size: 0.7em;
+  color: var(--ink-dim);
+}
+
+.reveal .prompt-compare pre {
+  margin: 0.3em 0 0;
+}
+
+.reveal .prompt-compare pre code {
+  display: block;
+  height: 390px !important;
+  padding: 0.8em 1em;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: hidden !important;
+}
+
+.reveal .prompt-compare pre.pi code {
+  font-size: 1em;
+  line-height: 1.45;
+  height: 390px !important;
+}
+
+.reveal .prompt-compare pre.pi code strong {
+  font-weight: 800;
+  color: var(--accent);
+}
+
+/* Deliberately unreadable: only here to show how much text there is. */
+.reveal .prompt-compare pre.bloat code {
+  font-size: 3px;
+  line-height: 1.15;
+  color: var(--ink-dim);
+}
+
+.reveal ul.tokbars {
+  margin: 1em 0 0;
+  font-size: 0.6em;
+}
+
+.reveal ul.tokbars li {
+  display: grid;
+  grid-template-columns: 7em 1fr 3.5em;
+  align-items: center;
+  gap: 0.8em;
+  margin: 0.2em 0;
+}
+
+.reveal ul.tokbars li::before {
+  content: none;
+}
+
+.reveal ul.no-leaf li::before {
+  content: none;
+}
+
+.reveal ul.tokbars i {
+  display: block;
+  height: 0.7em;
+  width: var(--w);
+  border-radius: 4px;
+  background: var(--ink-faint);
+}
+
+.reveal ul.tokbars li:last-child i {
+  background: var(--accent);
+}
+
+.reveal ul.tokbars b {
+  text-align: right;
+}
+
+/* ---------- "Ask it to improve itself": pain -> fix rows ---------- */
+
+.reveal .itches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  margin: 1.4em 0 1em;
+  font-size: 1.15em;
+}
+
+.reveal .itch {
+  display: grid;
+  grid-template-columns: 1.2fr auto 1fr;
+  align-items: center;
+  gap: 0.8em;
+  text-align: left;
+}
+
+.reveal .itch .pain {
+  padding: 0.5em 1em;
+  border-left: 6px solid var(--hl);
+  border-radius: 0 10px 10px 0;
+  background: var(--bg-panel);
+  font-style: italic;
+}
+
+.reveal .itch .emoji {
+  margin-right: 0.5em;
+  font-style: normal;
+}
+
+.reveal .itch .arrow {
+  color: var(--hl);
+  font-size: 1.6em;
+  line-height: 1;
+}
+
+.reveal .itch .fix {
+  padding: 0.5em 1em;
+  border: 1px solid color-mix(in srgb, var(--hl) 45%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--hl) 12%, transparent);
+}
+
+.reveal .itch .fix code {
+  padding: 0.05em 0.45em;
+  border-radius: 6px;
+  background: var(--hl);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+/* ---------- print-pdf: keep the warm theme, not reveal.js's white default ---------- */
+
+html.print-pdf,
+html.print-pdf body,
+html.print-pdf .reveal,
+html.print-pdf .reveal .slides section {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+}

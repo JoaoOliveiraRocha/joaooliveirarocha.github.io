@@ -1,0 +1,26 @@
+<section>
+  <span class="eyebrow live">Live Demo</span>
+  <h2>Tree / fork / rewind — live demo</h2>
+  <p><code>/tree</code>, jump to an earlier point, fork a branch, run it differently.</p>
+  <div class="mermaid-frame">
+    <pre class="mermaid">
+graph TD
+    t1["turn 1"] --> t2["turn 2"]
+    t2 --> t3["turn 3 · fork here"]
+    t3 --> t4a["turn 4a · original"]
+    t3 --> t4b["turn 4b · new branch"]
+    classDef main fill:#113224,stroke:#113224,color:#f3ead4
+    classDef fork fill:#c98a1b,stroke:#8a5d0e,color:#2b2318
+    classDef orig fill:#2c6b4d,stroke:#113224,color:#f3ead4
+    classDef fresh fill:#a8402f,stroke:#6f2a1e,color:#f3ead4
+    class t1,t2 main
+    class t3 fork
+    class t4a orig
+    class t4b fresh
+    linkStyle default stroke:#6d6250,stroke-width:2px
+    </pre>
+  </div>
+  <p class="lede">Sessions are a JSONL tree — Pi's design; OMP adds checkpoint/rewind and worktree-isolated subagent branches on top.</p>
+  <blockquote>Copilot CLI: single linear thread, no branching.</blockquote>
+  <aside class="notes">~90s, mostly demo. Show /tree, rewind to an earlier turn, fork it, and run the fork differently to demonstrate real branching.</aside>
+</section>

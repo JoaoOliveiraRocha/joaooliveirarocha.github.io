@@ -1,0 +1,68 @@
+<section>
+  <span class="eyebrow live">Live Demos</span>
+  <h2>The complaints, answered</h2>
+  <table class="fix-table three-col">
+    <thead>
+      <tr>
+        <th>Complaint</th>
+        <th>Elsewhere</th>
+        <th>Oh My Pi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment">
+        <td>Loops are hard to set up</td>
+        <td>Pi: tmux. Copilot: Autopilot, <code>--goal</code></td>
+        <td>
+          Just tell it what you want as goal OR
+          <code>/loop --while</code> / <code>/goal</code>
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Sub-agents</td>
+        <td>Pi: tmux. Many "orchestrator" UIs / terminals</td>
+        <td>
+          Just tell it if the use of sub-agents is allowed or not. OR
+          <code>task</code>. Also <code>orchestrate</code>*
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Token routing</td>
+        <td>Copilot: one vendor's models</td>
+        <td>
+          <code>/model</code>. Copilot, OpenRouter, Ollama (local), etc.
+          Anything
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Billing</td>
+        <td>Copilot: opaque premium-request multipliers (issue #2591)</td>
+        <td>
+          Model choice or auto-select policy. Shell-output minimizer +
+          auto-compaction (customizable)
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Steering</td>
+        <td>Copilot: approval-gated per action</td>
+        <td>
+          <code>Enter</code> steers mid-tool-call,
+          <code>Alt+Enter</code> follows up
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    ~3 min including demos. Row by row. Loops: Pi says "spawn instances via
+    tmux"; Copilot's Autopilot just "encourages" continuing, no condition; omp
+    ships the primitive. Sub-agents (live): fan out 2-3 small subagents and show
+    them land; Pi's README calls this "not built". Token routing: shape of the
+    config, not the literal file: ollama [llama3.1:8b, qwen2.5:14b]; anthropic
+    [claude-opus-4] with fallback [openai/gpt-4.1, ollama/qwen2.5:14b]. Billing:
+    let the github/copilot-cli #2591 quote sit on screen a beat: "I was forced
+    to change the CLI: both opencode and pi.dev work correctly... I'm using
+    pi.dev and the premium request consumption is correct." Steering (live):
+    interrupt a running tool call, show the redirect (Pi's steeringMode /
+    followUpMode, inherited verbatim).
+  </aside>
+</section>

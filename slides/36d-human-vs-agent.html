@@ -1,0 +1,72 @@
+<section>
+  <span class="eyebrow">We know how to talk programming</span>
+  <h2>Tasks given by product ❌ Tasks you pass to AI</h2>
+  <table class="fix-table three-col badgood wide">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Human-friendly</th>
+        <th>Agent-friendly</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="0"
+            >“Investigate why exporting JSON is not working.”</span
+          >
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="1"
+            >“User report failing in exporting JSONs. Check last 2 weeks of
+            commits flow. Compare with test changes.
+            <span style="font-weight: bold !important"
+              >Produce a ranked list</span
+            >
+            of suspected regressions with evidence.”</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="2"
+            >“Fix widget not showing after DFE push.”</span
+          >
+        </td>
+        <td>
+          <span class="fragment fade-up" data-fragment-index="3"
+            >“Widget <code>fs-quotaton-something-card</code> in should be shown
+            in these conditions: <code>user-market is PT, status: .....</code
+            ><br />
+            <br />
+            <span style="font-weight: bold !important"
+              >Verify the test suite, investigate the possible root-cause.
+              <br /><br />
+              Implement fix, add tests targeting that problem”</span
+            ></span
+          >
+        </td>
+      </tr>
+
+      <tr class="fragment fade-up" data-fragment-index="4">
+        <td></td>
+        <td>Open-ended investigation, maybe business judgment.</td>
+        <td>
+          A bounded investigation.
+          <span style="font-weight: bold !important"
+            >Concrete deliverable.</span
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    ~50s. Five clicks: row 1 human-friendly then agent-friendly, row 2 the same,
+    then why. A senior engineer can work with the first one: they know who to ask and
+    when to stop. An agent can't ask, so it fills the gaps with guesses. The
+    translation from the first into the second is the work you do before you
+    type anything.
+  </aside>
+</section>

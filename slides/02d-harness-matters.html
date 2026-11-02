@@ -1,0 +1,69 @@
+<section>
+  <span class="eyebrow">Misconception #1</span>
+  <h2>"So the harness doesn't matter?"</h2>
+  <p class="lede">
+    <em
+      >"No new intelligence" is not "no difference". Same model, different
+      harness:</em
+    >
+  </p>
+  <table class="fix-table three-col wide1">
+    <thead>
+      <tr>
+        <th>What changed</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment">
+        <td>mimo-v2.5-pro: 3 harnesses</td>
+        <td>mimo-v2.5-pro: OpenCode 44.9% · Pi 48.3% · Cline 60.7%</td>
+      </tr>
+      <tr class="fragment">
+        <td>Prompt, tools vs Harness</td>
+        <td>gpt-5.2-codex: <em>52.8% → 66.5%</em> on Terminal-Bench 2.0</td>
+      </tr>
+      <tr class="fragment">
+        <td>Per-model harness profile</td>
+        <td>GPT 5.3 Codex <em>33% → 53%</em>, Opus 4.7 <em>43% → 53%</em></td>
+      </tr>
+      <tr class="fragment">
+        <td>Opus 4.6: Claude Code vs other harnesses</td>
+        <td>
+          Claude Code <em>ranked last</em> among Opus 4.6 submissions on
+          Terminal-Bench 2.0
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Frontier models, big-vendor harnesses</td>
+        <td>success within ~±2%, <em>cost up to 3×</em></td>
+      </tr>
+      <tr class="fragment">
+        <td>Latest Frontier evals:</td>
+        <td><em> around 6% points</em> between best and worst setup</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="fragment">At the frontier, gaps under 5% are noise.</p>
+  <aside class="notes">
+    ~90s. Fair counterweight to the "No." slide: Katz is talking about frontier
+    models on tasks they can already solve. Rows 1-2: LangChain (Improving Deep
+    Agents with harness engineering; Tuning Deep Agents to Work Well with
+    Different Models, Apr 2026). Row 1 is a bundle of changes (prompt, tools,
+    hooks, reasoning budget), not an ablation of one. Row 3:
+    github.com/cline/benchmark-results, terminal-bench/2026-06-open-weights, 89
+    tasks, pass@1, ONE run per cell, run by the Cline team (vendor bias: Cline
+    came first or tied on every model). Other models in that table: glm-5.2
+    Cline 68.5 / OpenCode 59.6 / Pi 57.3; minimax-m3 61.8 / 49.4 / 47.2;
+    kimi-k2.7-code 61.8 / 59.6 / 61.8. The ranking between Pi and OpenCode flips
+    depending on the model. Claude Code row: LangChain, "Tuning Deep Agents to
+    Work Well with Different Models" (Apr 2026). Terminal tasks aren't what
+    Claude Code is tuned for and newer releases may have changed it, so frame it
+    as "the vendor's harness isn't automatically best for its own model".
+    Frontier row: HarnessTax, short tasks, no subagents/MCP. Last row:
+    Anthropic, "Quantifying infrastructure noise in agentic coding evals" (Feb
+    2026): 6 pp gap, p &lt; 0.01, most vs least resourced container setup on
+    Terminal-Bench 2.0. Takeaway: don't read a 2-3 point leaderboard gap as a
+    harness verdict.
+  </aside>
+</section>

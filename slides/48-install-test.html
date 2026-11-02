@@ -1,0 +1,35 @@
+<section class="closing impact">
+  <h2>You don't have to install any of this.</h2>
+  <p class="fragment">
+    Not Oh My Pi, not the skills, not the packages I showed.
+  </p>
+  <p class="fragment">
+    I just hope I made some things clearer about how to leverage agents better.
+  </p>
+  <p class="fragment">
+    <strong>But if you're curious: install it. Test it.</strong>
+  </p>
+  <pre
+    class="fragment"
+  ><code>curl -fsSL https://omp.sh/install | sh</code></pre>
+  <p class="fragment" style="font-size: 0.65em; color: var(--ink-dim)">
+    🛡️ The skills and repo were scanned with
+    <code>github.com/nvidia/skillspector</code>. Not sure yet if it's approved
+    for use here.
+  </p>
+  <p class="fragment" style="font-size: 1.15em">
+    Please leave 5 stars on <s>Google Review</s> Bravo (our feedback platform)
+    ⭐⭐⭐⭐⭐
+  </p>
+  <aside class="notes">
+    ~45s. End here: do not circle back to a recap. The first part is the actual
+    message: take the ideas (scope it, verify it, minimize decisions, keep your
+    instructions alive), not the tooling. The install line is only for the
+    curious. Pi itself installs with curl -fsSL https://pi.dev/install.sh | sh;
+    omp is also on Homebrew (brew install can1357/tap/omp). SkillSpector is
+    NVIDIA's security scanner for agent skills (Apache 2.0). Say plainly that
+    approval is unconfirmed. It has a static mode (--no-llm); the LLM mode
+    sends content to whichever provider is configured, which is the part to
+    check before approving.
+  </aside>
+</section>

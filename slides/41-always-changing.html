@@ -1,0 +1,47 @@
+<section>
+  <span class="eyebrow">My AGENTS.md</span>
+  <h2>All instructions are dynamic. Always changing.</h2>
+  <ul class="no-leaf">
+    <li class="fragment">
+      <span class="lead">🌍 Global AGENTS.md</span> — I ask the agent to update
+      it when something annoys me
+    </li>
+    <li class="fragment">
+      <span class="lead">📁 Project/per-repo instructions</span>
+      — <code>.planning/codebase/</code> regenerated when the repo changes /
+      once asked
+    </li>
+    <li class="fragment">
+      <span class="lead">🧩 Skills</span> — I test new ones, keep the good, drop
+      the rest
+    </li>
+    <li class="fragment">
+      <span class="lead">📄 Prompt templates</span> — a repeated task becomes a
+      <code>/command</code>
+    </li>
+    <li class="fragment">
+      <span class="lead">⚙️ Memory, models, settings</span> — what it remembers,
+      which model does what, how much it asks
+    </li>
+  </ul>
+  <p class="lede fragment">
+    <em
+      >Caveat: context files didn't reliably improve success and cost 20%+ more
+      (ETH study). Keep only what the agent can't infer, and review what it
+      writes into them.</em
+    >
+  </p>
+  <aside class="notes">
+    ~60s. None of this is written once. Every time the agent does something that
+    annoys me, I ask it to update the right file: global AGENTS.md for how I
+    want it to behave everywhere, the project AGENTS.md for repo specifics, a
+    skill or prompt template for a repeated task. The .planning/codebase notes
+    come from map-codebase. Memory (Mnemopi) changes by itself. Models and
+    approval mode live in config.yml. Caveat: ETH Zurich, "Evaluating AGENTS.md"
+    (arXiv 2602.11988): LLM-generated context files changed resolution by -0.5%
+    to -2% and developer-written ones +2.4% (not significant), at +20% cost on
+    average; instructions are followed, repository overviews don't help, and
+    non-standard practices are where they pay off. Everything in my global file
+    is non-inferable (who I am, comms style, rules), which is why it stays.
+  </aside>
+</section>

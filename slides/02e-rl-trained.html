@@ -1,0 +1,51 @@
+<section>
+  <span class="eyebrow">How???????</span>
+  <h2>The model already knows how to work in a harness</h2>
+  <img
+    class="fragment"
+    style="display: block; margin: 0.3em auto; height: 300px"
+    src="assets/model-harness-co-design.svg"
+    alt="Model-harness co-design: the RL environment trains the model, the model is fitted to the harness, and the harness measures the RL environment."
+  />
+
+  <p class="fragment">
+    <strong>Finishing the task is in the model.</strong> What it doesn't cover,
+    and the harness still decides:
+  </p>
+  <ul class="no-leaf">
+    <li class="fragment">
+      <span class="lead">💸 Cost</span> — what gets sent every turn, what's
+      truncated
+    </li>
+    <li class="fragment">
+      <span class="lead">🧭 Ease of use</span> — setup, UI, permissions,
+      steering, skills, getting skills, etc
+    </li>
+    <li class="fragment">
+      <span class="lead">🧰 Extra capabilities</span> — MCP, sub-agents, LSP,
+      browser, memory.
+    </li>
+  </ul>
+  <aside class="notes">
+    ~60s. This is the "why" behind the "No." slide: the loop-navigation skill
+    (explore, edit, run, verify, retry) is trained into the model, so a harness
+    can't add it back. Source for the quote: Cursor, "Continually improving our
+    agent harness" (Stefan Heule and Jediah Katz, Apr 30, 2026), section on
+    customizing the harness per model; they give each model the tool format it
+    had during training. Same idea as Pi's argument later (Zechner: frontier
+    models are RL-trained on coding agents, so a 10k-token system prompt isn't
+    needed). Careful with the claim's scope: I verified the tool-format
+    statement (Cursor) and Zechner's quote; I did not find a lab publishing the
+    details of its RL environments, so keep "RL-trained in agent loops" as the
+    general, widely stated claim, not a spec. Cline also says open-weight models
+    like DeepSeek, GLM and Kimi are RL-trained to spend more tokens verifying
+    (run tests, check the build, re-read diffs); I only saw that as a search
+    snippet of their X post, so don't put it on a slide without opening it. The
+    three bullets are what the model can't provide and what the rest of the talk
+    is about: cost (tokens per turn), ease of use (friction, control) and extra
+    capabilities for the developer. Diagram
+    (assets/model-harness-co-design.svg): the RL environment trains the model,
+    the model is fitted to the harness, the harness measures the RL environment.
+    So the three are co-designed and can't be judged separately.
+  </aside>
+</section>

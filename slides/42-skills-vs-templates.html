@@ -1,0 +1,53 @@
+<section>
+  <span class="eyebrow">Two reusable things</span>
+  <h2>Skills vs. prompt templates</h2>
+  <table class="fix-table three-col">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Skill</th>
+        <th>Prompt template</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="fragment">
+        <td>Good for</td>
+        <td>Know-how the model should reach for on its own</td>
+        <td>A re-occuring procedure or task / avoid re-typing</td>
+      </tr>
+      <tr class="fragment">
+        <td>What it is</td>
+        <td>A folder with a <code>SKILL.md</code></td>
+        <td>One Markdown file</td>
+      </tr>
+      <tr class="fragment">
+        <td>Who triggers it</td>
+        <td>The model mostly (sometimes the user)</td>
+        <td>
+          Usually by typing <code>/promt-name</code>. (Model but less
+          sensitive).
+        </td>
+      </tr>
+      <tr class="fragment">
+        <td>Arguments</td>
+        <td>No</td>
+        <td>Yes: <code>$1</code>, <code>$2</code>, etc. Some mandatory</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="fragment">
+    <code>SKILL.md</code> is a shared format: Pi, Claude Code, OpenCode, Copilot
+    CLI and omp all read it.
+  </p>
+  <p class="fragment">
+    Skills and templates are indexed when a session starts. Added one? Start a
+    new session or <code>/reload</code>.
+  </p>
+  <aside class="notes">
+    ~75s. If someone only remembers one thing: a prompt template is a saved
+    prompt with blanks. A skill is a saved capability the model decides to load.
+    The shared SKILL.md format is the Copilot-relevant part: what you write here
+    carries over. The gotcha is real: a skill written mid-session says "Unknown
+    skill" until the next session boots.
+  </aside>
+</section>

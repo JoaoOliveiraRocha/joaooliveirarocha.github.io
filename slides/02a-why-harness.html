@@ -1,0 +1,42 @@
+<section>
+  <span class="eyebrow">Under the hood</span>
+  <h2>What does an harness give the model?</h2>
+  <p class="lede">
+    <em>Five things the LLM can't do alone:</em>
+  </p>
+  <ul class="no-leaf">
+    <li class="fragment">
+      <span class="lead">👁️ Eyes</span> — decides what the model sees: system,
+      AGENTS.md, file reads.
+    </li>
+
+    <li class="fragment">
+      <span class="lead">✋ Hands</span> — changes files, shell commands, drive
+      a browser, requests to Jira MCP or Github...
+    </li>
+
+    <li class="fragment">
+      <span class="lead">🛡️ Guardrails</span> — permissions, approvals, sandbox,
+      undo
+    </li>
+    <li class="fragment">
+      <span class="lead">🧠 Memory</span> — sessions, history, resume, notes
+    </li>
+    <li class="fragment">
+      <span class="lead" style="font-weight: bold !important">🔁 The loop</span>
+      — keeps going until done
+    </li>
+  </ul>
+
+  <p class="fragment">
+    <strong>❌ Intelligence.</strong> That comes from the model.
+  </p>
+  <aside class="notes">
+    ~45s. Don't define "harness" up front; start from what they already use
+    daily and stopped noticing. Claude Code, Copilot CLI, OpenCode, Codex are
+    all harnesses. The list mirrors LangChain's anatomy of a harness
+    (filesystem, bash, sandbox, memory, compaction, skills, loops). Last click
+    sets up the next slide: if none of this is the intelligence, does a better
+    harness make the agent smarter?
+  </aside>
+</section>

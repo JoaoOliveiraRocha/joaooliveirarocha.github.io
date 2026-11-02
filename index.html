@@ -1,1 +1,222 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Three.js_bp</title><script defer="defer" src="/static/js/main.41296762.js"></script><link href="/static/css/main.984713c2.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Coding agents, harnesses, and my new best friend</title>
+    <meta name="viewport" content="width=1280, height=800" />
+    <link rel="stylesheet" href="vendor/reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="vendor/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+    <div class="reveal">
+      <div class="slides"></div>
+    </div>
+
+    <script type="module">
+      import Reveal from "./vendor/reveal.js/dist/reveal.mjs";
+      import Notes from "./vendor/reveal.js/dist/plugin/notes.mjs";
+      import mermaid from "./vendor/mermaid/dist/mermaid.esm.min.mjs";
+
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: "default",
+        flowchart: {
+          htmlLabels: false,
+          padding: 18,
+          nodeSpacing: 60,
+          rankSpacing: 50,
+        },
+        themeVariables: {
+          darkMode: false,
+          background: "#ece0c3",
+          primaryColor: "#f3ead4",
+          primaryTextColor: "#2b2318",
+          primaryBorderColor: "#1e4d38",
+          lineColor: "#6d6250",
+          fontFamily:
+            'ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif',
+          fontSize: "20px",
+        },
+      });
+
+      const SLIDE_FILES = [
+        "slides/01-title.html",
+        "slides/03-motivation.html",
+        "slides/02a-llm-for-coding.html",
+        "slides/02a-why-harness.html",
+        "slides/02b-smarter-harness.html",
+        "slides/02d-harness-matters.html",
+        "slides/02e-rl-trained.html",
+        "slides/03a-agenda.html",
+        "slides/04-my-history.html",
+        "slides/05-capability-list.html",
+        "slides/06-problem-observability.html",
+        "slides/07-problem-extensibility.html",
+        "slides/08-opencode.html",
+        "slides/09-found-pi.html",
+        "slides/10-meet-pi.html",
+        "slides/11-opencode-callback.html",
+        "slides/12-four-tools.html",
+        "slides/13-prompt-bloat.html",
+        "slides/14-why-it-works.html",
+        "slides/17-what-pi-does.html",
+        "slides/18-what-pi-has.html",
+        "slides/18a-extra-things.html",
+        "slides/19-pivot.html",
+        "slides/20-omp-reveal.html",
+        "slides/21-omp-fixes.html",
+        "slides/22-omp-extras.html",
+        "slides/23-omp-answers.html",
+        "slides/24-tree-fork-demo.html",
+        "slides/25-keywords.html",
+        "slides/24a-improve-itself.html",
+        "slides/27-audience-question.html",
+        "slides/30-engineering-contrast.html",
+        "slides/31-not-monkey.html",
+        "slides/32-problems-intro.html",
+        "slides/33-problem-review-agents.html",
+        "slides/34-common-point.html",
+        "slides/35-common-point-conclusion.html",
+        "slides/35a-what-matters.html",
+        "slides/36-four-dimensions.html",
+        "slides/36a-properties.html",
+        "slides/36b-three-that-matter.html",
+        "slides/36c-example-task.html",
+        "slides/36d-human-vs-agent.html",
+        "slides/36e-rule-of-thumb.html",
+        "slides/37-minimize-decisions.html",
+        "slides/38-eighty-twenty.html",
+        "slides/39-how-i-use-agents.html",
+        "slides/40-agents-md-overview.html",
+        "slides/41-always-changing.html",
+        "slides/42-skills-vs-templates.html",
+        "slides/43-my-skills.html",
+        "slides/44-cve-task.html",
+        "slides/45-cve-fix-story.html",
+        "slides/46-prompt-anatomy.html",
+        "slides/47-summary.html",
+        "slides/48-install-test.html",
+      ];
+
+      async function loadSlides() {
+        const slidesEl = document.querySelector(".reveal .slides");
+        const htmls = await Promise.all(
+          SLIDE_FILES.map((f) => fetch(f).then((r) => r.text())),
+        );
+        slidesEl.innerHTML = htmls.join("\n");
+      }
+
+      // Full-viewport animated flowing-line mesh background — a light,
+      // understated take on a wireframe flow-field diagram: many thin lines
+      // layered into overlapping sine waves so they cross and braid like a
+      // twisted ribbon, moving slowly. Same cream/forest-green palette.
+      (function () {
+        const canvas = document.getElementById("bg-canvas");
+        const ctx = canvas.getContext("2d");
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        const LINES = 35;
+        const bandTop = 0.22;
+        const bandBottom = 0.85;
+
+        // Click gives a brief, fully smooth speed-up: a short sine-shaped pulse
+        // (0 -> 1 -> 0) over a fixed, short duration — no snap on either end.
+        const PULSE_MS = 1300;
+        const PULSE_BOOST = 1.5;
+        let pulseStart = -Infinity;
+        window.addEventListener("click", () => {
+          pulseStart = performance.now();
+        });
+
+        let phase = 0;
+        let lastT = performance.now();
+
+        function draw(t) {
+          const dt = Math.min(t - lastT, 48);
+          lastT = t;
+
+          const elapsed = t - pulseStart;
+          const pulseRatio = Math.max(0, Math.min(1, elapsed / PULSE_MS));
+          const pulse = elapsed < PULSE_MS ? Math.sin(pulseRatio * Math.PI) : 0;
+          const speed = 1 + 1 * PULSE_BOOST;
+
+          phase += dt * 0.00011 * speed;
+
+          ctx.fillStyle = "#f3ead4";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          for (let i = 0; i < LINES; i++) {
+            const p = i / (LINES - 1);
+            const baseY =
+              canvas.height * (bandTop + p * (bandBottom - bandTop));
+            const edgeFade = Math.sin(p * Math.PI);
+            const opacity = Math.min(
+              0.1,
+              (0.04 + edgeFade * 0.13) * (1 + pulse * 2.2),
+            );
+
+            ctx.beginPath();
+            for (let x = 0; x <= canvas.width; x += 6) {
+              const nx = x / canvas.width;
+              const y =
+                baseY +
+                Math.sin(nx * 6 + phase * 1.0 + i * 0.16) *
+                  canvas.height *
+                  0.04 +
+                Math.sin(nx * 3.1 - phase * 0.7 + i * 0.35) *
+                  canvas.height *
+                  0.025 +
+                Math.sin(nx * 10 + phase * 1.6 + i * 0.08) *
+                  canvas.height *
+                  0.01;
+              if (x === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = `rgba(30, 77, 56, ${opacity})`;
+            ctx.lineWidth = 1 + pulse * 2.4;
+            ctx.stroke();
+          }
+          requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
+      })();
+
+      loadSlides().then(() => {
+        const deck = new Reveal({
+          hash: true,
+          center: true,
+          transition: "slide",
+          transitionSpeed: "fast",
+          margin: 0.18,
+          plugins: [Notes],
+        });
+        deck.initialize().then(() => {
+          mermaid.run({ nodes: document.querySelectorAll(".mermaid") });
+
+          // Reveal scales its fixed-size canvas to fit the window, which
+          // cancels browser zoom. Shrink the canvas by the zoom factor
+          // instead, so zooming in enlarges the content like a normal page.
+          // Zoom is measured relative to the page-load devicePixelRatio.
+          const { width, height } = deck.getConfig();
+          const baseDpr = window.devicePixelRatio;
+          const applyZoom = () => {
+            const zoom = window.devicePixelRatio / baseDpr;
+
+            deck.configure({
+              width: Math.round(width / zoom),
+              height: Math.round(height / zoom),
+            });
+          };
+          window.addEventListener("resize", applyZoom);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<section>
+  <span class="eyebrow">What's in the box</span>
+  <h2>What does it provide us?</h2>
+  <h2 class="fragment"><em>A way to use an LLM for coding.</em></h2>
+  <p class="fragment">
+    On its own, an LLM is one stateless function:
+    <code>text in → text out</code>.
+  </p>
+  <p class="fragment">It can't open a file, run commands, directly.</p>
+  <img
+    class="fragment"
+    style="display: block; margin: 0.4em auto; height: 330px"
+    src="assets/harness.svg"
+    alt="You send a task to the harness; the harness sends the full history to the LLM, gets back a tool call, checks and runs it with the tools, and repeats until done."
+  />
+  <p class="fragment">
+    <strong>That loop is the harness.</strong> Provides the tools for the LLM to
+    fulfill our request.
+  </p>
+  <aside class="notes">
+    ~60s. Technical beat. The model API is stateless: every call re-sends the
+    whole history (system prompt, project instructions, tool definitions, all
+    previous turns and tool results). Tools are just JSON schemas the model can
+    "call" by emitting structured output; the model never executes anything, the
+    harness does, then feeds the result back. Everything else (TUI, diffs,
+    permissions, sessions, MCP, sub-agents) is detail on top of this loop. Also
+    the reason token usage is a harness problem: every iteration pays for the
+    whole history again. Next slide: what that loop gives the model.
+  </aside>
+</section>

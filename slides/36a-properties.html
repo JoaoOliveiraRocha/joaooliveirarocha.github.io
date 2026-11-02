@@ -1,0 +1,95 @@
+<section data-auto-animate>
+  <span class="eyebrow" data-id="eyebrow">Properties of a good agent task</span>
+  <h2 data-id="title">What makes a task good for an agent?</h2>
+  <p class="lede">
+    <em>At least that's how I think. Ten properties; three matter most.</em>
+  </p>
+  <div class="dims groups" data-id="dims">
+    <div class="dim hl-a" data-id="dim-a">
+      <h3 data-id="h-a">Clarity on Scope</h3>
+      <p data-id="q-a">Do we know what to build?</p>
+      <ul class="no-leaf fragment fade-up" data-fragment-index="0">
+        <li>
+          <span class="lead">Clear objective</span> — prevents solving the wrong
+          problem.
+        </li>
+        <li>
+          <span class="lead">Bounded scope</span> — prevents unnecessary
+          refactoring / side-effects.
+        </li>
+        <li>
+          <span class="lead">Clear constraints</span> — avoids unwanted design
+          decisions. What should
+          <span style="font-weight: bold !important">NOT</span> be done"
+        </li>
+      </ul>
+    </div>
+    <div class="dim hl-c" data-id="dim-c">
+      <h3 data-id="h-c">Testable / Verifiable End Conditions</h3>
+      <p data-id="q-c">Can we prove it works?</p>
+      <ul class="no-leaf fragment fade-up" data-fragment-index="1">
+        <li>
+          <span class="lead">Verifiable outcome</span> — So agent can verify if
+          success (ACs aren't sufficient)
+        </li>
+        <li>
+          <span class="lead">Deterministic feedback tools </span> — provide
+          access to run tests, linters, LSP.
+          <span style="font-weight: bold !important"
+            >Reliable correction loops</span
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="dim hl-b" data-id="dim-b">
+      <h3 data-id="h-b">Autonomy</h3>
+      <p data-id="q-b">Can the agent execute it alone?</p>
+      <ul class="no-leaf fragment fade-up" data-fragment-index="2">
+        <li>
+          <span class="lead">Sufficient Context</span> — Remove guessing /
+          hallucination. "Ask" tool is a must.
+        </li>
+
+        <li>
+          <span class="lead">Low external dependency</span> — few human
+          decisions or approvals, so it can run on its own
+        </li>
+      </ul>
+    </div>
+    <div class="dim hl-d" data-id="dim-d">
+      <h3 data-id="h-d">Containment</h3>
+      <p data-id="q-d">Can mistakes be isolated / reverted?</p>
+      <ul class="no-leaf fragment fade-up" data-fragment-index="3">
+        <li>
+          <span class="lead">Reversible changes</span> I advice to not let it
+          mutate git commits, messages, terraforms, etc.
+        </li>
+        <li>
+          <span class="lead">Observable progress</span> — intermediate results
+          you can inspect
+        </li>
+      </ul>
+    </div>
+    <div class="axes fragment" data-fragment-index="5">
+      <span class="ax-line ax-h"></span>
+      <span class="ax-line ax-v"></span>
+      <span class="ax-label ax-left">AGENT preferences</span>
+      <span class="ax-label ax-right">SYSTEM conditions</span>
+      <span class="ax-label ax-top">Task specific</span>
+      <span class="ax-label ax-bottom">AGENTS.md</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    ~60s. The cards from the previous slide morph into their properties. Four
+    clicks, one dimension each: don't read every line, it's a reference. Say
+    "you don't need to memorize ten", then land the last line: one missing
+    dimension sinks the task. The central idea behind all ten: well-scoped,
+    verifiable, and executable with minimal ambiguity. (The full list had a
+    fifth "Appropriate complexity: small enough to reason about" under Autonomy;
+    cut from the slide.) Last click: the cards become a graph. Up/down is where
+    you write it down: in the task itself, or once in AGENTS.md. Left/right is
+    what it constrains: how the agent behaves, or the system it runs in (tests,
+    linters, git, sandbox).
+  </aside>
+</section>

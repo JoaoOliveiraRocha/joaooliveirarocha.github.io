@@ -1,0 +1,55 @@
+<section class="anatomy-slide">
+  <span class="eyebrow">Example</span>
+  <h2>A well-specified task</h2>
+  <div class="anatomy">
+    <pre><code style="font-size: 0.85em"><span class="hl hl-a fragment" data-fragment-index="0">Task: Add retry handling to the HTTP client</span>
+
+<span class="hl hl-a fragment" data-fragment-index="0">Objective: Retry network failures when calling the QService 2.0 API.</span>
+
+<span class="hl hl-b fragment" data-fragment-index="1">Scope:
+- Modify src/http/client.ts.
+- Preserve the existing public interface.
+- Do not modify unrelated API consumers.</span>
+<span class="fragment" data-fragment-index="4" style="color: brown">Workflow tips:
+- Read unstaged files; I left some hints in the code.
+- Investigate if we have something similar in place.
+- Any major blocker pause the task, report back and wait for instructions.
+</span>
+<span class="hl hl-c fragment" data-fragment-index="2">Requirements:
+- Retry on HTTP 429, 502, 503, and 504 AND Qservices URLs.
+- Maximum 3 retries.
+- Logger, analytics, etc etc etc
+- NEVER retry non-idempotent requests (by default).</span>
+
+<span class="hl hl-d fragment" data-fragment-index="3">Acceptance criteria:
+- Unit tests cover successful retries and retry exhaustion.
+- Existing tests pass.
+- TypeScript compilation succeeds. Docker build working, no new warnings. Stone soup.
+
+On Completion: Summarize changed in bullet points, test cases, and remaining limitations.</span></code></pre>
+    <ol class="legend">
+      <li class="hl-a fragment fade-up" data-fragment-index="0">
+        <b>Objective</b>
+      </li>
+      <li class="hl-b fragment fade-up" data-fragment-index="1">
+        <b>Scope</b> &mdash;
+      </li>
+      <li class="hl-c fragment fade-up" data-fragment-index="2">
+        <b>Requirements</b> &mdash; Decisions made up front
+      </li>
+      <li class="hl-d fragment fade-up" data-fragment-index="3">
+        <b>Acceptance + completion</b> &mdash; how to prove. What to report back
+      </li>
+    </ol>
+  </div>
+  <aside class="notes">
+    ~60s. Four clicks, top to bottom: each one reveals a block of the task and
+    its legend entry; a fifth click shows the brown "workflow tips" (how I want
+    it to work, not part of the spec). Every line removes a decision the agent
+    would otherwise
+    make for you: which file, which status codes, how many retries, what "done"
+    means. Note "Do not retry non-idempotent requests": a constraint nobody
+    thinks to ask for until it bites. Same idea as the prompt template later,
+    written for one task.
+  </aside>
+</section>

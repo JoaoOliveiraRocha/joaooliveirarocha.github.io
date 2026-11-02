@@ -1,0 +1,42 @@
+<section class="anatomy-slide">
+  <span class="eyebrow">Anatomy</span>
+  <h2>Anatomy of a prompt template</h2>
+  <div class="anatomy">
+    <pre><code><span class="hl hl-a fragment" data-fragment-index="0">---</span>
+<span class="hl hl-a fragment" data-fragment-index="0">description: Investigate a CVE/package finding from a Jira ticket + Wiz link ...</span>
+<span class="hl hl-a fragment" data-fragment-index="0">argument-hint: &quot;&lt;jira-link&gt; &lt;goal-description&gt; [wiz-link] [extra-instructions...]&quot;</span>
+<span class="hl hl-a fragment" data-fragment-index="0">---</span>
+
+# CVE / Dependency Fix
+
+Jira ticket: <span class="hl hl-b fragment" data-fragment-index="1">$1</span> (mandatory, a link). Extract the ticket id ...
+Goal: <span class="hl hl-b fragment" data-fragment-index="1">$2</span> (mandatory) - short description of what&#x27;s wanted ...
+Wiz finding: <span class="hl hl-b fragment" data-fragment-index="1">$3</span> (optional) - a Wiz link or a pasted finding ...
+Extra instructions: <span class="hl hl-b fragment" data-fragment-index="1">${@:4}</span>
+
+<span class="hl hl-d fragment" data-fragment-index="3">If $1 or $2 is missing or ambiguous, ask the user (ask) before proceeding - do not assume.</span>
+
+<span class="hl hl-c fragment" data-fragment-index="2">## 1. Research (web_search required)</span>
+<span class="hl hl-c fragment" data-fragment-index="2">## 2. Decide: easy fix or not</span>
+... <span class="hl hl-d fragment" data-fragment-index="3">stop, do not touch any file</span>. Report affected package(s) ...
+<span class="hl hl-c fragment" data-fragment-index="2">## 3. Apply (only if step 2 says easy fix)</span>
+<span class="hl hl-c fragment" data-fragment-index="2">## 4. Branch</span>
+<span class="hl hl-c fragment" data-fragment-index="2">## 5. Commit</span>
+<span class="hl hl-c fragment" data-fragment-index="2">## 6. PR</span></code></pre>
+    <ol class="legend">
+      <li class="hl-a fragment fade-up" data-fragment-index="0"><b>Frontmatter</b> &mdash; shows in the <code>/</code> menu, tells you what to type</li>
+      <li class="hl-b fragment fade-up" data-fragment-index="1"><b>Arguments</b> &mdash; <code>$1</code> <code>$2</code> <code>$3</code>, the rest as <code>${@:4}</code></li>
+      <li class="hl-c fragment fade-up" data-fragment-index="2"><b>Steps</b> &mdash; plain Markdown: the procedure I used to retype</li>
+      <li class="hl-d fragment fade-up" data-fragment-index="3"><b>Guardrails</b> &mdash; ask, don't guess; stop, don't touch anything</li>
+    </ol>
+  </div>
+  <p class="lede">File: <code>~/.omp/agent/prompts/jr-cve-fix.md</code></p>
+  <aside class="notes">
+    ~60s. Four clicks: each lights up one colour in the file and shows its legend entry (frontmatter, arguments, steps, guardrails). The frontmatter is the only "special"
+    part; everything else is just the instructions you'd write in chat, with
+    $1/$2 blanks. The guardrails come from mistakes: it must ask rather than
+    invent a ticket id, and stop without touching files if the fix isn't trivial.
+    Full file is ~100 lines (repo rules for branch/commit names, registry mirror
+    handling, PR template, sprint-review block).
+  </aside>
+</section>
